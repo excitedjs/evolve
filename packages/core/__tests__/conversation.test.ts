@@ -85,4 +85,33 @@ describe("ConversationSession", () => {
 
     assert.deepEqual(session.getMessages(), [{ role: "user", content: "继续" }]);
   });
+
+  it("能识别 Anthropic thinking block 并转成 reasoning 事件", async () => {
+    const session = new ConversationSession({
+      runner: createRunner([
+        [
+          {
+            content: [
+              { type: "thinking", thinking: "先拆解问题。" },
+              { type: "text", text: "结论" },
+            ],
+          },
+        ],
+      ]),
+    });
+
+    const events = [];
+    for await (const event of session.submit("继续")) {
+      events.push(event);
+    }
+
+    assert.deepEqual(events, [
+      { type: "reasoning", text: "先拆解问题。" },
+      { type: "content", text: "结论" },
+      {
+        type: "done",
+        message: { role: "assistant", content: "结论" },
+      },
+    ]);
+  });
 });

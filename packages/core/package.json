@@ -14,6 +14,7 @@
     "test": "node --env-file ../../.env --require tsx/cjs --test __tests__/*.test.ts"
   },
   "dependencies": {
+    "@langchain/anthropic": "catalog:",
     "@langchain/core": "catalog:",
     "@langchain/langgraph": "catalog:",
     "@langchain/openai": "catalog:"

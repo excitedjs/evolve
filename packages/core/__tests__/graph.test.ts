@@ -1,6 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { graph } from "../src/graph";
+import { loadRuntimeConfigFromEnv } from "../src/config";
+import { createGraph } from "../src/graph";
 
 /** 从 LangChain message 的 content 中提取纯文本 */
 function extractText(content: unknown): string {
@@ -15,6 +16,8 @@ function extractText(content: unknown): string {
 }
 
 describe("graph", () => {
+  const graph = createGraph(loadRuntimeConfigFromEnv());
+
   it("invoke 能正常调用模型并返回 AI 响应", { timeout: 30_000 }, async () => {
     const result = await graph.invoke({
       messages: [{ role: "user", content: "只回复ok两个字母，不要说其他任何内容" }],

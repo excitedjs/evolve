@@ -4,22 +4,43 @@ import {
   START,
   END,
 } from "@langchain/langgraph";
-import { chatModel } from "./config";
+import type { ConversationRuntimeConfig } from "./config";
+import { createChatModel } from "./config";
 
-const llm = async (state: typeof MessagesAnnotation.State) => {
-  const message = await chatModel.invoke(state.messages, {
+function createInvocationOptions(runtimeConfig: ConversationRuntimeConfig) {
+  if (runtimeConfig.model.provider !== "openai") {
+    return undefined;
+  }
+
+  return {
     stream_options: { include_usage: true },
-    tools: [
-      {
-        type: "web_search",
-      },
-    ],
-  });
-  return { messages: [message] };
-};
+    ...(runtimeConfig.model.api === "responses" &&
+    runtimeConfig.model.webSearch !== false
+      ? {
+          tools: [
+            {
+              type: "web_search",
+            },
+          ],
+        }
+      : {}),
+  };
+}
 
-export const graph = new StateGraph(MessagesAnnotation)
-  .addNode("llm", llm)
-  .addEdge(START, "llm")
-  .addEdge("llm", END)
-  .compile();
+export function createGraph(runtimeConfig: ConversationRuntimeConfig) {
+  const chatModel = createChatModel(runtimeConfig);
+
+  const llm = async (state: typeof MessagesAnnotation.State) => {
+    const message = await chatModel.invoke(
+      state.messages,
+      createInvocationOptions(runtimeConfig),
+    );
+    return { messages: [message] };
+  };
+
+  return new StateGraph(MessagesAnnotation)
+    .addNode("llm", llm)
+    .addEdge(START, "llm")
+    .addEdge("llm", END)
+    .compile();
+}

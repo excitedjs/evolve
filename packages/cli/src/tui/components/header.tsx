@@ -3,11 +3,15 @@ import { Box, Spacer, Text } from "ink";
 
 export function Header({
   currentDirectory,
+  currentEffort,
+  currentModelLabel,
   isSubmitting,
   status,
   spinnerFrame,
 }: {
   currentDirectory: string;
+  currentEffort: string;
+  currentModelLabel: string;
   isSubmitting: boolean;
   status: string;
   spinnerFrame: string;
@@ -24,7 +28,9 @@ export function Header({
           {isSubmitting ? spinnerFrame : "●"} {status}
         </Text>
       </Box>
-      <Text color="gray">{currentDirectory}</Text>
+      <Text color="gray">
+        {currentDirectory} · {currentModelLabel} · effort {currentEffort}
+      </Text>
     </>
   );
 }

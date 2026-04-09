@@ -4,9 +4,11 @@ import { Box, Text } from "ink";
 export function Composer({
   input,
   isSubmitting,
+  isMenuOpen,
 }: {
   input: string;
   isSubmitting: boolean;
+  isMenuOpen: boolean;
 }) {
   return (
     <>
@@ -16,7 +18,11 @@ export function Composer({
         </Text>
         <Text color="gray"> Composer </Text>
         <Text color="gray">
-          {isSubmitting ? "生成中，暂不接收输入" : "Enter 发送 · Esc 清空 · Ctrl+C 退出"}
+          {isSubmitting
+            ? "生成中，暂不接收输入"
+            : isMenuOpen
+              ? "↑↓ 选择 · Enter 确认 · Esc 清空 · Ctrl+C 退出"
+              : "Enter 发送 · Esc 清空 · Ctrl+C 退出"}
         </Text>
       </Box>
       <Box>
