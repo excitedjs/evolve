@@ -1,0 +1,26 @@
+diff --git a/dist/converters/responses.cjs b/dist/converters/responses.cjs
+index 2edc669692715a24c4b6eed963a5224ee110e4ef..e87757ba82c8bf1a6f70824243dd58d8a47fb439 100644
+--- a/dist/converters/responses.cjs
++++ b/dist/converters/responses.cjs
+@@ -245,7 +245,7 @@ const convertResponsesMessageToAIMessage = (response) => {
+ 				return {
+ 					type: "text",
+ 					text: part.text,
+-					annotations: part.annotations.map(convertOpenAIAnnotationToLangChain),
++					annotations: (part.annotations ?? []).map(convertOpenAIAnnotationToLangChain),
+ 					...item.phase !== null ? { phase: item.phase } : {}
+ 				};
+ 			}
+diff --git a/dist/converters/responses.js b/dist/converters/responses.js
+index b61a8172f1f401f25228d6fabefb8358964b98dd..076996572f5e5ab4e5a9fdb040823b1fd05da143 100644
+--- a/dist/converters/responses.js
++++ b/dist/converters/responses.js
+@@ -245,7 +245,7 @@ const convertResponsesMessageToAIMessage = (response) => {
+ 				return {
+ 					type: "text",
+ 					text: part.text,
+-					annotations: part.annotations.map(convertOpenAIAnnotationToLangChain),
++					annotations: (part.annotations ?? []).map(convertOpenAIAnnotationToLangChain),
+ 					...item.phase !== null ? { phase: item.phase } : {}
+ 				};
+ 			}

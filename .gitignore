@@ -1,0 +1,14 @@
+node_modules
+dist
+es
+lib
+tsconfig.tsbuildinfo
+
+.DS_Store
+
+.env
+.claude
+.codex
+.trae
+AGENTS.md
+CLAUDE.md

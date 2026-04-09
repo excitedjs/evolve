@@ -1,0 +1,7 @@
+interface:
+  display_name: "Develop"
+  short_description: "Clarify requirements and deliver end to end"
+  default_prompt: "Use $develop to clarify this requirement, research best practices, then implement and validate it end to end."
+
+policy:
+  allow_implicit_invocation: true

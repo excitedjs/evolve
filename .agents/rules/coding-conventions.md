@@ -1,0 +1,4 @@
+- 业务逻辑放在 `packages/`；`.agents/` 只负责开发 harness。
+- 共享 agent 运行时 / SDK 抽象优先放在 `packages/core` 导出的稳定接口后面；适配层输入输出留在各自的入口包。
+- 修改代码必须同步补测试；测试放在对应包的 `__tests__/` 目录下。
+- 修改包边界、调用链或扩展入口后，必须做 knowledge delta review。

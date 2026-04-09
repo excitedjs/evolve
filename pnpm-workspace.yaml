@@ -1,0 +1,15 @@
+packages:
+  - packages/*
+
+catalog:
+  '@langchain/core': 1.1.39
+  '@langchain/langgraph': 1.2.8
+  '@langchain/openai': 1.4.3
+  '@rspack/cli': 1.7.4
+  '@rspack/core': 1.7.4
+  '@types/node': 25.1.0
+  tsx: 4.21.0
+  typescript: 5.9.3
+
+patchedDependencies:
+  '@langchain/openai@1.4.3': patches/@langchain__openai@1.4.3.patch

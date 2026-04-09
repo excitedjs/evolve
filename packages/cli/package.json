@@ -1,0 +1,22 @@
+{
+  "name": "@evolve/cli",
+  "version": "1.0.0",
+  "bin": {
+    "evolve": "./bin.js"
+  },
+  "scripts": {
+    "build": "rspack -c scripts/rspack.config.ts",
+    "build:tsc": "tsc --build",
+    "watch:tsc": "tsc --watch",
+    "dev": "node --env-file ../../.env ./bin.js"
+  },
+  "dependencies": {
+    "@evolve/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@rspack/cli": "catalog:",
+    "@rspack/core": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
