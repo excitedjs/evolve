@@ -1,8 +1,16 @@
-import { CLI } from "./cli";
+import React from "react";
+import { render } from "ink";
+import { App } from "./app";
 
 async function main() {
-  const cli = new CLI();
-  await cli.start();
+  const instance = render(React.createElement(App), {
+    exitOnCtrlC: false,
+  });
+
+  await instance.waitUntilExit();
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

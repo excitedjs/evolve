@@ -16,6 +16,12 @@ export default defineConfig({
           jsc: {
             parser: {
               syntax: "typescript",
+              tsx: true,
+            },
+            transform: {
+              react: {
+                runtime: "automatic",
+              },
             },
           },
         },
@@ -24,6 +30,9 @@ export default defineConfig({
     ],
   },
   resolve: {
+    alias: {
+      "react-devtools-core": false,
+    },
     extensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".cjs"],
     conditionNames: ["source", "import", "module", "require"],
     tsConfig: {

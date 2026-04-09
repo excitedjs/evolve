@@ -12,20 +12,21 @@
 
 ## Data Flows
 
-- 当前终端链路：`packages/cli/src/cli.ts` -> `@evolve/core.graph.stream()` -> `packages/core/src/graph.ts` -> `chatModel.invoke()`
+- 当前终端链路：`packages/cli/src/tui/index.tsx` -> `@evolve/core.ConversationSession.submit()` -> `packages/core/src/graph.ts` -> `chatModel.invoke()`
 - 当前非业务知识链路：future agent 先读 `.agents/root.md`，再按任务路由到包级或域级文档
 
 ## Invariants
 
 - `.agents/` 只服务开发，不承载业务运行时
 - 共享 agent 运行时能力应集中在 `packages/core` 的稳定导出后面
-- 终端 / Web / 其他适配层只拥有各自的输入输出、状态呈现和接入代码
+- 终端 / Web / 其他适配层只拥有各自的输入输出、状态呈现和接入代码，不直接解析 LangGraph 返回的消息 chunk
 - 修改跨包调用链时，必须同步更新这个文件或对应包文档
 
 ## Routing
 
 - 要做共享 SDK 抽象：先从 `packages/core/src/index.ts` 的导出面开始
-- 要做终端体验：先从 `packages/cli/src/cli.ts` 和 `packages/cli/src/stream-handler.ts` 开始
+- 要做终端体验：先从 `packages/cli/src/tui/index.tsx` 开始，再看 `packages/cli/src/tui/components/*`
+- 要做共享对话流：先从 `packages/core/src/conversation/session.ts` 和 `packages/core/src/conversation/parser.ts` 开始
 - 要做 Web 适配：先明确是否复用 `packages/core` 的稳定能力，再决定是否新增入口包
 
 ## Update Triggers

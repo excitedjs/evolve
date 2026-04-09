@@ -8,6 +8,10 @@ catalog:
   '@rspack/cli': 1.7.4
   '@rspack/core': 1.7.4
   '@types/node': 25.1.0
+  '@types/react': 19.2.14
+  ink: 7.0.0
+  react: 19.2.5
+  react-devtools-core: 7.0.1
   tsx: 4.21.0
   typescript: 5.9.3
 

@@ -11,12 +11,16 @@
     "dev": "node --env-file ../../.env ./bin.js"
   },
   "dependencies": {
-    "@evolve/core": "workspace:*"
+    "@evolve/core": "workspace:*",
+    "ink": "catalog:",
+    "react": "catalog:",
+    "react-devtools-core": "catalog:"
   },
   "devDependencies": {
     "@rspack/cli": "catalog:",
     "@rspack/core": "catalog:",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
     "typescript": "catalog:"
   }
 }
