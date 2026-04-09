@@ -7,6 +7,7 @@
   "scripts": {
     "build": "rspack -c scripts/rspack.config.ts",
     "build:tsc": "tsc --build",
+    "test": "node --require tsx/cjs --test __tests__/*.test.ts",
     "watch:tsc": "tsc --watch",
     "dev": "node --env-file ../../.env ./bin.js"
   },
@@ -14,13 +15,15 @@
     "@evolve/core": "workspace:*",
     "ink": "catalog:",
     "react": "catalog:",
-    "react-devtools-core": "catalog:"
+    "react-devtools-core": "catalog:",
+    "yargs": "catalog:"
   },
   "devDependencies": {
     "@rspack/cli": "catalog:",
     "@rspack/core": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "tsx": "catalog:",
     "typescript": "catalog:"
   }
 }

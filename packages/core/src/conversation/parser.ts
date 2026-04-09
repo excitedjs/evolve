@@ -39,15 +39,34 @@ export function normalizeChunk(rawChunk: unknown): MessageChunk | null {
 
 export function extractReasoningText(chunk: MessageChunk): string {
   const summary = chunk.additional_kwargs?.reasoning?.summary;
-  if (!Array.isArray(summary)) {
+  if (Array.isArray(summary)) {
+    return summary
+      .filter(
+        (item): item is { type: "summary_text"; text: string } =>
+          item?.type === "summary_text" && typeof item.text === "string",
+      )
+      .map((item) => item.text)
+      .join("");
+  }
+
+  if (!Array.isArray(chunk.content)) {
     return "";
   }
 
-  return summary
+  return chunk.content
     .filter(
-      (item): item is { type: "summary_text"; text: string } =>
-        item?.type === "summary_text" && typeof item.text === "string",
+      (
+        item,
+      ): item is { type: "thinking"; thinking: string } =>
+        Boolean(
+          item &&
+            typeof item === "object" &&
+            "type" in item &&
+            "thinking" in item &&
+            (item as { type?: string }).type === "thinking" &&
+            typeof (item as { thinking?: unknown }).thinking === "string",
+        ),
     )
-    .map((item) => item.text)
+    .map((item) => item.thinking)
     .join("");
 }

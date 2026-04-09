@@ -1,5 +1,5 @@
 export { extractReasoningText, extractTextContent, normalizeChunk } from "./parser";
-export { defaultConversationRunner } from "./runner";
+export { createConversationRunner, defaultConversationRunner } from "./runner";
 export { ConversationSession } from "./session";
 export type {
   ConversationMessage,

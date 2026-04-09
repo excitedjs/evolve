@@ -1,5 +1,6 @@
 export {
   ConversationSession,
+  createConversationRunner,
   defaultConversationRunner,
   extractReasoningText,
   extractTextContent,

@@ -1,1 +1,1 @@
-export { App } from "./tui";
+export { App, type AppProps } from "./tui";
