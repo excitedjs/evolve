@@ -30,16 +30,16 @@ function createFixtureRepo() {
   );
   writeFileSync(join(root, ".agents", "rules", "testing.md"), "# testing\n");
   writeFileSync(
-    join(root, ".agents", "scripts", "link.js"),
-    readFileSync(join(repoRoot, ".agents", "scripts", "link.js"), "utf8"),
+    join(root, ".agents", "scripts", "link.cjs"),
+    readFileSync(join(repoRoot, ".agents", "scripts", "link.cjs"), "utf8"),
   );
   writeFileSync(
-    join(root, ".agents", "scripts", "utils.js"),
-    readFileSync(join(repoRoot, ".agents", "scripts", "utils.js"), "utf8"),
+    join(root, ".agents", "scripts", "utils.cjs"),
+    readFileSync(join(repoRoot, ".agents", "scripts", "utils.cjs"), "utf8"),
   );
   writeFileSync(
-    join(root, ".agents", "scripts", "check.js"),
-    readFileSync(join(repoRoot, ".agents", "scripts", "check.js"), "utf8"),
+    join(root, ".agents", "scripts", "check.cjs"),
+    readFileSync(join(repoRoot, ".agents", "scripts", "check.cjs"), "utf8"),
   );
 
   return root;
@@ -50,7 +50,7 @@ describe("agents scripts", () => {
     const fixtureRoot = createFixtureRepo();
     const result = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "link.js")],
+      [join(".agents", "scripts", "link.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",
@@ -104,7 +104,7 @@ describe("agents scripts", () => {
 
     const result = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "link.js")],
+      [join(".agents", "scripts", "link.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",
@@ -126,7 +126,7 @@ describe("agents scripts", () => {
 
     const linkResult = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "link.js")],
+      [join(".agents", "scripts", "link.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",
@@ -136,7 +136,7 @@ describe("agents scripts", () => {
 
     const checkResult = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "check.js")],
+      [join(".agents", "scripts", "check.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",
@@ -159,7 +159,7 @@ describe("agents scripts", () => {
 
     const linkResult = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "link.js")],
+      [join(".agents", "scripts", "link.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",
@@ -169,7 +169,7 @@ describe("agents scripts", () => {
 
     const checkResult = spawnSync(
       process.execPath,
-      [join(".agents", "scripts", "check.js")],
+      [join(".agents", "scripts", "check.cjs")],
       {
         cwd: fixtureRoot,
         encoding: "utf8",

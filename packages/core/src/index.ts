@@ -27,5 +27,6 @@ export {
   parseEvolveConfigFile,
   type SupportedChatModel,
 } from "./config";
+export { createGraph } from "./graph";
 export { logger } from "./logger";
 export { tools } from "./tools";

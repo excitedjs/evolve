@@ -2,7 +2,7 @@
 
 const fsp = require("fs/promises");
 const path = require("path");
-const { findMdFiles, exists, isDirectory } = require("./utils");
+const { findMdFiles, exists, isDirectory } = require("./utils.cjs");
 
 const ROOT = path.resolve(__dirname, "../..");
 const AGENT_DIR = path.resolve(__dirname, "..");

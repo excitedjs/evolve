@@ -1,7 +1,10 @@
 import type { ServerResponse } from "node:http";
-import { graph } from "@evolve/core";
+import { createGraph, loadRuntimeConfigFromEnv } from "@evolve/core";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import type { OpenResponsesRequest, InputItem } from "./types";
+
+const runtimeConfig = loadRuntimeConfigFromEnv();
+const graph = createGraph(runtimeConfig);
 
 function buildMessages(input: string | InputItem[], instructions?: string) {
   const messages: (HumanMessage | SystemMessage)[] = [];
@@ -66,7 +69,8 @@ async function handleStream(messages: (HumanMessage | SystemMessage)[], res: Ser
 
   const stream = await graph.stream({ messages }, { streamMode: "messages" });
 
-  for await (const [message, metadata] of stream) {
+  for await (const chunk of stream) {
+    const [message, metadata] = chunk as unknown as [{ content: unknown }, { langgraph_node: string }];
     if (metadata.langgraph_node === "llm" && message.content) {
       const text = typeof message.content === "string" ? message.content : "";
       if (text) {

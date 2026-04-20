@@ -7,7 +7,7 @@ const {
   ensureDir,
   isDirectory,
   exists,
-} = require("./utils");
+} = require("./utils.cjs");
 
 const ROOT = path.resolve(__dirname, "../..");
 const AGENT_DIR = path.resolve(__dirname, "..");

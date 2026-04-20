@@ -56,14 +56,14 @@ export async function loadCliBootstrapConfig(options: {
   try {
     rawContent = await readFile(configPath, "utf8");
   } catch (error) {
-    throw new Error(`读取配置文件失败: ${configPath}\n${String(error)}`);
+    throw new Error(`读取配置文件失败: ${configPath}`, { cause: error });
   }
 
   let parsedContent: unknown;
   try {
     parsedContent = JSON.parse(rawContent);
   } catch (error) {
-    throw new Error(`配置文件不是合法 JSON: ${configPath}\n${String(error)}`);
+    throw new Error(`配置文件不是合法 JSON: ${configPath}`, { cause: error });
   }
 
   const config = parseEvolveConfigFile(parsedContent);
