@@ -10,3 +10,4 @@ export {
 export { graph } from "./graph";
 export { chatModel } from "./config";
 export { logger } from "./logger";
+export { tools } from "./tools";
