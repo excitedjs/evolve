@@ -2,10 +2,14 @@
   "name": "evolve",
   "version": "1.0.0",
   "description": "A test package",
+  "type": "module",
   "scripts": {
+    "lint": "eslint 'packages/*/src/**/*.ts'",
+    "lint:fix": "eslint 'packages/*/src/**/*.ts' --fix",
+    "typecheck": "tsc --build packages/core packages/channel packages/cli",
     "agents:link": "node .agents/scripts/link.js",
     "agents:check": "node .agents/scripts/check.js",
-    "agents:test": "node --test .agents/__tests__/*.test.js",
+    "agents:test": "node --test .agents/__tests__/*.test.cjs",
     "commitlint": "commitlint --edit",
     "prepare": "husky",
     "postinstall": "npm run agents:link"
@@ -13,7 +17,11 @@
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "husky": "^9.1.7"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
+    "husky": "^9.1.7",
+    "typescript-eslint": "^8.59.0"
   },
   "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6"
 }

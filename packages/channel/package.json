@@ -1,0 +1,26 @@
+{
+  "name": "@evolve/channel",
+  "version": "1.0.0",
+  "exports": {
+    ".": {
+      "source": "./src/index",
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "build:tsc": "tsc --build",
+    "watch:tsc": "tsc --watch",
+    "dev": "node --env-file ../../.env --require tsx/cjs src/index.ts",
+    "test": "node --env-file ../../.env --require tsx/cjs --test __tests__/*.test.ts"
+  },
+  "dependencies": {
+    "@evolve/core": "workspace:*",
+    "@langchain/core": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}

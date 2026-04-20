@@ -11,8 +11,13 @@ export const bashTool = tool(
         maxBuffer: 1024 * 1024,
       });
       return output || "(no output)";
-    } catch (e: any) {
-      return `Exit code ${e.status ?? 1}\n${e.stderr || e.message}`;
+    } catch (e: unknown) {
+      if (e instanceof Error && "status" in e) {
+        const status = (e as unknown as Record<string, unknown>).status as number;
+        const stderr = (e as unknown as Record<string, unknown>).stderr as string;
+        return `Exit code ${status ?? 1}\n${stderr || e.message}`;
+      }
+      return `Error: ${e instanceof Error ? e.message : String(e)}`;
     }
   },
   {

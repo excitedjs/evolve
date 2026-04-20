@@ -10,9 +10,11 @@ export const grepTool = tool(
         { encoding: "utf-8", timeout: 15_000, maxBuffer: 1024 * 1024 }
       );
       return output || "(no matches)";
-    } catch (e: any) {
-      if (e.status === 1) return "(no matches)";
-      return `Error: ${e.message}`;
+    } catch (e: unknown) {
+      if (e instanceof Error && "status" in e && (e as { status: number }).status === 1) {
+        return "(no matches)";
+      }
+      return `Error: ${e instanceof Error ? e.message : String(e)}`;
     }
   },
   {
