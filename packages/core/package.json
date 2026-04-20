@@ -17,7 +17,8 @@
     "@langchain/anthropic": "catalog:",
     "@langchain/core": "catalog:",
     "@langchain/langgraph": "catalog:",
-    "@langchain/openai": "catalog:"
+    "@langchain/openai": "catalog:",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "catalog:",

@@ -4,43 +4,33 @@ import {
   START,
   END,
 } from "@langchain/langgraph";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
+import type { AIMessage } from "@langchain/core/messages";
 import type { ConversationRuntimeConfig } from "./config";
 import { createChatModel } from "./config";
-
-function createInvocationOptions(runtimeConfig: ConversationRuntimeConfig) {
-  if (runtimeConfig.model.provider !== "openai") {
-    return undefined;
-  }
-
-  return {
-    stream_options: { include_usage: true },
-    ...(runtimeConfig.model.api === "responses" &&
-    runtimeConfig.model.webSearch !== false
-      ? {
-          tools: [
-            {
-              type: "web_search",
-            },
-          ],
-        }
-      : {}),
-  };
-}
+import { tools } from "./tools";
 
 export function createGraph(runtimeConfig: ConversationRuntimeConfig) {
   const chatModel = createChatModel(runtimeConfig);
+  const modelWithTools = chatModel.bindTools(tools);
+  const toolNode = new ToolNode(tools);
 
   const llm = async (state: typeof MessagesAnnotation.State) => {
-    const message = await chatModel.invoke(
-      state.messages,
-      createInvocationOptions(runtimeConfig),
-    );
+    const message = await modelWithTools.invoke(state.messages);
     return { messages: [message] };
   };
 
+  function shouldContinue(state: typeof MessagesAnnotation.State) {
+    const lastMessage = state.messages[state.messages.length - 1] as AIMessage;
+    if (lastMessage.tool_calls?.length) return "tools";
+    return END;
+  }
+
   return new StateGraph(MessagesAnnotation)
     .addNode("llm", llm)
+    .addNode("tools", toolNode)
     .addEdge(START, "llm")
-    .addEdge("llm", END)
+    .addConditionalEdges("llm", shouldContinue, ["tools", END])
+    .addEdge("tools", "llm")
     .compile();
 }

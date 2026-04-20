@@ -28,3 +28,4 @@ export {
   type SupportedChatModel,
 } from "./config";
 export { logger } from "./logger";
+export { tools } from "./tools";

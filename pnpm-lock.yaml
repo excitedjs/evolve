@@ -94,6 +94,9 @@ importers:
       '@langchain/openai':
         specifier: 'catalog:'
         version: 1.4.3(patch_hash=d3f637c912d9eec8d4e70622b570fccf01dab761df58231c74f8e912782b218d)(@langchain/core@1.1.39(openai@6.34.0(ws@8.20.0)(zod@4.3.6))(ws@8.20.0))(ws@8.20.0)
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
